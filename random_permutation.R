@@ -31,7 +31,7 @@ cal_randompp <- function(extra_weight,sample_size=25){
   extra_weight$pp <- freq
   list(freq)
 }
-
+# running example
 set.seed(2022)
 cancer <- "BLCA"
 extra_weight <- read.delim(paste(cancer,"_extra_weight.txt",sep=""),header=T)
