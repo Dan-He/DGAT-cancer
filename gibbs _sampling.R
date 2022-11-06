@@ -21,3 +21,8 @@ cal_pp <- function(extra_weight,sample_size=25){
   extra_weight$pp <- freq
   extra_weight
 }
+# running example
+extra_weight <- read.delim(paste(cancer,"_extra_weight.txt",sep=""),header=T,sep="\t")
+extra_weight <- cal_pp(extra_weight)
+cancer <- "BLCA"
+write.table(extra_weight,paste(cancer,"_prop.txt",sep = ""))
