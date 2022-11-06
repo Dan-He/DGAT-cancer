@@ -3,6 +3,8 @@ library(MASS)
 library(moments)
 
 score_func <- function(score_df,L_m=20,m){
+  # L_m was the number of selected most important features in laplacian selection
+  # m was the number of chosen principal components
   cal_num <- unlist(apply(score_df,1,function(x){sum(is.na(x))}))
   score_df2 <- score_df[cal_num <= ncol(score_df)/2,]
   score_df2$JSD <- 1-sqrt(score_df2$JSD)
