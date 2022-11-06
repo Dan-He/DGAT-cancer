@@ -75,3 +75,7 @@ score_func <- function(score_df,L_m=20,m){
   extra_weight <- extra_weight[match(unique(extra_weight$gene),extra_weight$gene),]
   extra_weight
 }
+# running example
+extra_weight <- score_func(cancer.list[[1]],m=10)
+cancer <- "BLCA"
+write.table(extra_weight,file=paste(cancer,"_extra_weight.txt",sep=""),sep="\t",row.names=F)
