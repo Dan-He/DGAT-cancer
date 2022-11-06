@@ -46,3 +46,17 @@ save(gene,file = paste("./random_res/",cancer,"_random.RData",sep = ""))
 rm(gene)
 stopCluster(cl)
 
+# calculate empirical p values
+prop <- read.delim(paste(cancer,"_prop.txt",sep = ""))
+load(paste("./random_res/",cancer,"_random.RData",sep = ""))
+cat(cancer,"load end.\t")
+prop <- prop[match(rownames(gene),prop$gene),]
+gene$pp <- prop$pp
+gene <- as.matrix(gene)
+prop$p.value <- 1
+cat("start calculating!\t")
+for(j in 1:nrow(gene)){prop$p.value[j] <- sum(gene[j,1:1000000]>=gene[j,1000001])/1000000}
+cat("end scoring\n")
+#prop$p.value <- apply(gene,1,function(x) sum(x[1:1000000]>=x[1000001])/1000000)
+write.table(prop,file = paste(cancer,"_prop_p_value.txt",sep = ""),row.names = F,quote = F,sep = "\t")
+rm(gene)
