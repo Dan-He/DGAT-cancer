@@ -7,5 +7,6 @@ DGAT-cancer
 4. random_permutation.R
    The weighted score file generated in Step 2 was used as input to construct a null distribution of PP to obtain the likelihood of a given gene being a cancer driver gene. By counting the number of times that a random PP of a gene was larger than the real PP of the gene, an experience p-value was given. 
 5. The p-values were adjusted by Bonferroni correction and those genes with ![](https://latex.codecogs.com/svg.image?p_{adj})<0.01 were selected as being significant.
+
 Language
 R (100%)
