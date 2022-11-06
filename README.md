@@ -9,4 +9,4 @@ DGAT-cancer
 5. The p-values were adjusted by Bonferroni correction and those genes with ![](https://latex.codecogs.com/svg.image?p_{adj})<0.01 were selected as being significant.
 
 Language
-  R (100%)
+R (100%)
