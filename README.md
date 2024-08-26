@@ -30,7 +30,7 @@ The weighted score file generated in Step 2 was used as input to obtain a conver
 4.	random_permutation.R  
 The weighted score file generated in Step 2 was used as input to construct a null distribution of PP to obtain the likelihood of a given gene being a cancer driver gene. By counting the number of times that a random PP of a gene was larger than the real PP of the gene, an experience p-value was given.   
 
-5.	The p-values were adjusted by Bonferroni correction and those genes with ![](https://latex.codecogs.com/svg.image?p_{adj}<0.01) were selected as being significant.  
+5.	The p-values were adjusted by Bonferroni correction and those genes with padj < 0.01 were selected as being significant.  
 # Acknowledgement  
 We thank for all the available mutation data and RNA-seq data for supporting this work. Somatic mutation data were downloaded from the Broad Institute GDAC Firehose Portal (http://gdac.broadinstitute.org/), the International Cancer Genome Consortium (ICGC) Data Portal (https://dcc.icgc.org/releases/current/Projects/) and The Cancer Genome Atlas (TCGA) (https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga). The germline mutation data of healthy individuals were collected from Phase3 of the 1000 Genomes Project (https://www.internationalgenome.org/data, GRCh38). RNA-seq data (RSEM normalized count, log2 transformed) of tumors from 12 cancer types in TCGA were downloaded from the UCSC Xena platform63 (http://xena.ucsc.edu/). The corresponding RNA-seq data of paracancerous tissues were downloaded from TCGA.  
 # Note  
