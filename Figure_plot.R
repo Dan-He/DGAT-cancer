@@ -181,36 +181,6 @@ upset(
 )
 dev.off()
 ############### Figure 4A ####################
-show_com <- readRDS("data/Figure_4A.RDS")
-names(MutSigCV_g) <- names(oncoFML_g) <- names(oncoCLUSTL_g) <- names(DiffMut_g) <- names(DiffMut_g) <- cancer[1:7]
-mutsigCV_df <- ldply(MutSigCV_g,data.frame)
-mutsigCV_df$group <- "MutSigCV"
-oncoCLUSTL_df <- ldply(oncoCLUSTL_g,data.frame)
-oncoCLUSTL_df$group <- "OncodriveCLUSTL"
-oncoFML_df <- ldply(oncoFML_g,data.frame)
-oncoFML_df$group <- "OncodriveFML"
-DiffMut_df <- ldply(DiffMut_g,data.frame)
-DiffMut_df$group <- "DiffMut"
-
-all_df <- rbind(mutsigCV_df[,c(".id","BYS","group","risk")],oncoFML_df[,c(".id","BYS","group","risk")],
-                oncoCLUSTL_df[,c(".id","BYS","group","risk")],
-                DiffMut_df[,c(".id","BYS","group","risk")])
-colnames(all_df)[1] <- "cancer"
-ggboxplot(all_df[!is.na(all_df$risk),],x = "cancer",y="BYS",color = "risk",fill="risk",alpha=.5)+
-  facet_wrap(group~.,nrow =5,strip.position = "right")+
-  ylim(0,0.011)+
-  labs(x = "", y = "PP score in DGAT-cancer")+
-  scale_color_manual(values = c("#6F69AC","#FD6F96"),labels=c("q>0.05","q<0.05"))+
-  scale_fill_manual(values = c("#6F69AC","#FD6F96"),labels=c("q>0.05","q<0.05"))+
-  theme(panel.background = element_rect(fill = "white",colour = "grey"),
-        strip.text = element_text(size = 11,face = "bold"),
-        axis.text = element_text(size = 11,colour = "black"),legend.position = "bottom",
-        axis.title = element_text(size = 11.5),legend.key = element_rect(fill = "white",colour = "white"),
-        legend.title = element_blank(), legend.box.spacing = unit(-.5,"cm"))+
-  stat_compare_means(aes(group=risk),method = "wilcox.test",paired = F,label = "p.format",label.y = 0.01,
-                     size=3.3)
-dev.off()
-############### Figure 4B ####################
 # MutSigCV_g <- list()
 # oncoFML_g <- list()
 # oncoCLUSTL_g <- list()
@@ -292,7 +262,7 @@ dev.off()
 #                 DiffMut_df[,c(".id","BYS","group","risk")])
 # colnames(all_df)[1] <- "cancer"
 # all_df <- all_df[all_df$group != "TDAmut",]
-all_df <- readRDS("data/Figure_4B.RDS")
+all_df <- readRDS("data/Figure_4A.RDS")
 
 ggboxplot(all_df[!is.na(all_df$risk),],x = "cancer",y="BYS",color = "risk",fill="risk",alpha=.5)+
   facet_wrap(group~.,nrow =5,strip.position = "right")+
@@ -308,7 +278,7 @@ ggboxplot(all_df[!is.na(all_df$risk),],x = "cancer",y="BYS",color = "risk",fill=
   stat_compare_means(aes(group=risk),method = "wilcox.test",paired = F,label = "p.format",label.y = 0.01,
                      size=3.3)
 dev.off()
-############### Figure 4C ####################
+############### Figure 4B ####################
 # select_fea_num <- read.delim("/home/yanglab_data3/user/yangsy/DGAT-cancer/evaluation/select_fea_num", header=FALSE, row.names=1)
 # compare_list <- list()
 # for(i in 1:7){
@@ -396,8 +366,8 @@ dev.off()
 # tt <- aggregate(value~variable2,data = plot_df3,function(x) max(x)*0.95)
 # aggre_df3$y <- tt$value[match(aggre_df3$variable2,tt$variable2)]
 
-Figure_4C <- list(aggre_df3,plot_df3) 
-readRDS(file="data/Figure_4C.RDS")
+Figure_4B <- list(aggre_df3,plot_df3) 
+readRDS(file="data/Figure_4B.RDS")
 ggplot(Figure_4C[[2]][Figure_4C[[2]]$variable%in%select_fea2[20:24],],aes(x = type,y=value))+
   geom_boxplot(aes(fill=type),width=0.6,outlier.size = .7)+
   geom_jitter(aes(fill=type),position = position_jitterdodge(.4),shape = 21,size=.7,alpha=.8)+
