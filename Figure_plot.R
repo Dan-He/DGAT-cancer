@@ -4,17 +4,14 @@ required_packages <- c(
 lapply(required_packages, function(package) {
     library(package, character.only = TRUE)  
 })
-load("./golden_list.RData")
-load("./cancer_list.RData")
-load("./golden_ppi_gene.RData")
 cancer <- c("BLCA","BRCA","COAD","GBM","HNSC","LUAD","STAD")
 ############### Figure 2A ####################
 protein <- read.delim("data/protein_coding_genes.txt",header = T)
 risk_list <- readRDS(file="data/risk_list.RDS")
 
-constrained_df <- read.csv(file="/home/yanglab_data3/user/yangsy/DGAT-cancer/evaluation/enrichment/constrained_enrichment_union_p_value.csv")
-CGC_OncoKB_IntOGen_df <- read.csv(file="/home/yanglab_data3/user/yangsy/review_DGAT-cancer/plot/github/CGC_OncoKB_IntOGen_df.csv")
-shRNA_SCISPR_df <- read.csv(file="/home/yanglab_data3/user/yangsy/review_DGAT-cancer/plot/github/shRNA_SCISPR.csv")
+constrained_df <- read.csv(file="data//constrained_enrichment_union_p_value.csv")
+CGC_OncoKB_IntOGen_df <- read.csv(file="data//CGC_OncoKB_IntOGen_df.csv")
+shRNA_SCISPR_df <- read.csv(file="data//shRNA_SCISPR.csv")
 plot_df1 <- rbind(CGC_OncoKB_IntOGen_df,constrained_df,shRNA_SCISPR_df)
 plot_df1$geneset <- factor(plot_df1$geneset,levels = c("CGC","OncoKB","IntOGen","constraint","shRNA"))
 ggplot(plot_df1,aes(y = cancer,x=-log10(p.adj),color=geneset))+
@@ -50,7 +47,7 @@ xx2 <- reshape2::melt(xx2)
 xx1$rank <- xx2$value
 colnames(xx1)[1:2] <- c("gene","cancer")
 xx1$gene <- factor(xx1$gene,levels = rev(top20))
-# emf(file = "/home/yanglab_data3/user/yangsy/review_DGAT-cancer/plot/Figure-2B.emf",width = 7,height = 7)
+
 ggplot(xx1[!is.na(xx1$value),],aes(x=cancer,y=gene,color=rank))+
   geom_point(shape=17,size=3)+
   scale_x_discrete(position = "top")+
@@ -61,7 +58,7 @@ ggplot(xx1[!is.na(xx1$value),],aes(x=cancer,y=gene,color=rank))+
                    legend.position = "bottom")
 dev.off()
 ############### Figure 2C ####################
-approved_genes <- readRDS("/home/yanglab_data3/user/yangsy/review_DGAT-cancer/plot/github/drug_overlap.RDS")
+approved_genes <- readRDS("data/drug_overlap.RDS")
 show_drug <- data.frame(cancer=cancer[1:7],p.value=1,OR=0,overlap=0,geneset="drug")
 drug.func <- function(x){
   length(intersect(x$gene,approved_genes))/nrow(x)
@@ -295,7 +292,7 @@ dev.off()
 #                 DiffMut_df[,c(".id","BYS","group","risk")])
 # colnames(all_df)[1] <- "cancer"
 # all_df <- all_df[all_df$group != "TDAmut",]
-all_df <- readRDS("/home/yanglab_data3/user/yangsy/review_DGAT-cancer/plot/github/Figure_4B.RDS")
+all_df <- readRDS("data/Figure_4B.RDS")
 
 ggboxplot(all_df[!is.na(all_df$risk),],x = "cancer",y="BYS",color = "risk",fill="risk",alpha=.5)+
   facet_wrap(group~.,nrow =5,strip.position = "right")+
