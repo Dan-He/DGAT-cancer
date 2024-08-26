@@ -313,8 +313,8 @@ dev.off()
 #     x[is.na(x)] <- 1
 #     return(x)
 #   })
-#   xx$group <- (xx$oncodriveCLUSTL<0.05 | xx$oncodriveFML<0.05 | xx$mutsigCV<0.05 |xx$TDAmut<0.05|xx$DiffMut<0.05) & !(xx$gene%in%risk_list[[k]]$gene)
-#   xx$group2 <- xx$oncodriveCLUSTL>0.05 & xx$oncodriveFML>0.05 & xx$mutsigCV>0.05 & xx$TDAmut>0.05 & xx$TDAmut>0.05 & xx$gene%in%risk_list[[k]]$gene
+#   xx$group <- (xx$oncodriveCLUSTL<0.05 | xx$oncodriveFML<0.05 | xx$mutsigCV<0.05 |xx$TDAmut<0.05|xx$DiffMut<0.05) & !(xx$gene%in%st[[k]]$gene)
+#   xx$group2 <- xx$oncodriveCLUSTL>0.05 & xx$oncodriveFML>0.05 & xx$mutsigCV>0.05 & xx$TDAmut>0.05 & xx$TDAmut>0.05 & xx$gene%in%st[[k]]$gene
 #   cat(cancer[k],"only predicted by other methods",sum(xx$group,na.rm = T),"\t","only predicted by DGAT-cancer",sum(xx$group2,na.rm = T),"\n")
 #   xx2 <- reshape2::melt(xx[!is.na(xx$group),c(-1,-22,-23,-24)],id.vars=c("group","group2"))
 #   xx2$type <- NA
@@ -365,13 +365,13 @@ dev.off()
 # colnames(aggre_df3)[1] <- "cancer"
 # tt <- aggregate(value~variable2,data = plot_df3,function(x) max(x)*0.95)
 # aggre_df3$y <- tt$value[match(aggre_df3$variable2,tt$variable2)]
-
-Figure_4B <- list(aggre_df3,plot_df3) 
-readRDS(file="data/Figure_4B.RDS")
-ggplot(Figure_4C[[2]][Figure_4C[[2]]$variable%in%select_fea2[20:24],],aes(x = type,y=value))+
+# Figure_4B <- list(aggre_df3,plot_df3) 
+             
+Figure_4B <- readRDS(file="data/Figure_4C.RDS")
+ggplot(Figure_4C[[2]][Figure_4C[[2]]$variable%in%c("JSD","C_score","exp_uEMD","cancer_med","normal_med"),],aes(x = type,y=value))+
   geom_boxplot(aes(fill=type),width=0.6,outlier.size = .7)+
   geom_jitter(aes(fill=type),position = position_jitterdodge(.4),shape = 21,size=.7,alpha=.8)+
-  geom_text(data = Figure_4C[[1]][Figure_4C[[1]]$variable2%in%label[20:24],],aes(x = 1.5,y=y,label=label),color="red",size=5.5)+
+  geom_text(data = Figure_4C[[1]][Figure_4C[[1]]$variable2%in% c("JSD","C_score","exp_uEMD","cancer_med","normal_med"),],aes(x = 1.5,y=y,label=label),color="red",size=5.5)+
   facet_grid(variable2~cancer,scales = "free_y")+
   labs(x = "",y="score",fill = "")+
   scale_fill_manual(values = c("#FF8981","#00C678"),labels=c("genes missed by other methods","genes missed by DAGT-cancer"))+
