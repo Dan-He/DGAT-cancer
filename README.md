@@ -31,7 +31,7 @@ The weighted score file generated in Step 2 was used as input to obtain a conver
 The weighted score file generated in Step 2 was used as input to construct a null distribution of PP to obtain the likelihood of a given gene being a cancer driver gene. By counting the number of times that a random PP of a gene was larger than the real PP of the gene, an experience p-value was given.   
 
 5.	The p-values were adjusted by Bonferroni correction and those genes with padj < 0.01 were selected as being significant.
-# plot 
+# Figure plot 
 The data/ directory contains the processed datasets used in plot.  
 The Figure_plot.R file contains the R scripts required to generate the figures.
 # Acknowledgement  
