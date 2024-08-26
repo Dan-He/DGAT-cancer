@@ -9,9 +9,9 @@ cancer <- c("BLCA","BRCA","COAD","GBM","HNSC","LUAD","STAD")
 protein <- read.delim("data/protein_coding_genes.txt",header = T)
 risk_list <- readRDS(file="data/risk_list.RDS")
 
-constrained_df <- read.csv(file="data//constrained_enrichment_union_p_value.csv")
-CGC_OncoKB_IntOGen_df <- read.csv(file="data//CGC_OncoKB_IntOGen_df.csv")
-shRNA_SCISPR_df <- read.csv(file="data//shRNA_SCISPR.csv")
+constrained_df <- read.csv(file="data/constrained_enrichment_union_p_value.csv")
+CGC_OncoKB_IntOGen_df <- read.csv(file="data/CGC_OncoKB_IntOGen_df.csv")
+shRNA_SCISPR_df <- read.csv(file="data/shRNA_SCISPR.csv")
 plot_df1 <- rbind(CGC_OncoKB_IntOGen_df,constrained_df,shRNA_SCISPR_df)
 plot_df1$geneset <- factor(plot_df1$geneset,levels = c("CGC","OncoKB","IntOGen","constraint","shRNA"))
 ggplot(plot_df1,aes(y = cancer,x=-log10(p.adj),color=geneset))+
